@@ -1,6 +1,6 @@
 package com.dicoding.asclepius.view
 
-import android.Manifest
+
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -29,10 +29,13 @@ class MainActivity : AppCompatActivity() {
         binding.analyzeButton.setOnClickListener {
             currentImage?.let {
                 moveToResult()
-
             } ?: run {
                 showToast("No Image Picked")
             }
+        }
+        binding.historyButton.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -87,13 +90,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun analyzeImage() {
-        val intent = Intent(this, ResultActivity::class.java)
-        croppedImage?.let { uri ->
-            intent.putExtra(ResultActivity.IMAGE_URI, uri.toString())
-            startActivityForResult(intent, REQUEST_RESULT)
-        } ?: showToast(getString(R.string.image_classifier_failed))
-    }
+//    private fun analyzeImage() {
+//        val intent = Intent(this, ResultActivity::class.java)
+//        croppedImage?.let { uri ->
+//            intent.putExtra(ResultActivity.IMAGE_URI, uri.toString())
+//            startActivityForResult(intent, REQUEST_RESULT)
+//        } ?: showToast(getString(R.string.image_classifier_failed))
+//    }
 
     private fun moveToResult() {
         val intent = Intent(this, ResultActivity::class.java)

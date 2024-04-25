@@ -11,5 +11,6 @@
 
     <string name="label">Label: %s</string>
     <string name="score">Score: %s</string>
+    <string name="date">Date: %s</string>
     <string name="history">History</string>
 </resources>

@@ -3,15 +3,19 @@ package com.dicoding.asclepius.view
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import com.dicoding.asclepius.R
+import androidx.appcompat.app.AppCompatActivity
+import com.dicoding.asclepius.database.History
+import com.dicoding.asclepius.database.HistoryDao
+import com.dicoding.asclepius.database.HistoryDatabase
 import com.dicoding.asclepius.databinding.ActivityMainBinding
-import java.io.File
+import com.dicoding.asclepius.repo.HistoryRepository
+import com.dicoding.asclepius.view.adaptermodel.viewModel
 import com.yalantis.ucrop.UCrop
+import java.io.File
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -20,10 +24,12 @@ class MainActivity : AppCompatActivity() {
     private var currentImage: Uri? = null
     private var croppedImage: Uri? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.analyzeButton.setOnClickListener {

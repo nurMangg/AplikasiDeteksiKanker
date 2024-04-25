@@ -1,6 +1,7 @@
 package com.dicoding.asclepius.repo
 
 import android.app.Application
+import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 import com.dicoding.asclepius.database.History
 import com.dicoding.asclepius.database.HistoryDao
@@ -19,4 +20,13 @@ class HistoryRepository(application: Application) {
     fun insert(history: History) {
         executorService.execute { mHistoryDao.insert(history) }
     }
+
+    fun deleteAll() {
+        AsyncTask.execute {
+            mHistoryDao.deleteAll()
+        }
+    }
+
+
+
 }

@@ -12,5 +12,9 @@ class viewModel(application: Application) : ViewModel() {
         mHistoryRepository.insert(history)
     }
 
+    fun deleteAll() {
+        mHistoryRepository.deleteAll()
+    }
+
 
 }

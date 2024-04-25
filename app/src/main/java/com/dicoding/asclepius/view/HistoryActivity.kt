@@ -36,11 +36,11 @@ class HistoryActivity : AppCompatActivity() {
         return ViewModelProvider(activity, factory).get(HistoryViewModel::class.java)
     }
 
-    private fun showRecyclerView(analysisHistoryList : ArrayList<History>){
+    private fun showRecyclerView(historyList : ArrayList<History>){
         val layoutManager = LinearLayoutManager(this)
         binding.historyRv.layoutManager = layoutManager
         binding.historyRv.setHasFixedSize(true)
-        val adapter = HistoryAdapter(analysisHistoryList)
+        val adapter = HistoryAdapter(historyList)
         binding.historyRv.adapter = adapter
     }
 }

@@ -17,10 +17,12 @@ data class History(
     @ColumnInfo(name = "imageUri")
     var uri: String,
 
-    @ColumnInfo(name  = "type")
+    @ColumnInfo(name  = "label")
     var label: String? = null,
 
     @ColumnInfo(name = "confidence")
-    var confidence: Float = 0.0F
-) : Parcelable
+    var confidence: Float = 0.0F,
 
+    @ColumnInfo(name = "dateGenerate")
+    val dateGenerate: String? = null
+) : Parcelable

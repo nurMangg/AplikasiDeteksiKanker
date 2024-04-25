@@ -14,23 +14,25 @@ import java.text.NumberFormat
 class HistoryAdapter(private var historyList : ArrayList<History>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
     class ViewHolder(item : View) : RecyclerView.ViewHolder(item) {
         val historyImg : ImageView = item.findViewById(R.id.history_image)
-        val historyType : TextView = item.findViewById(R.id.history_label)
+        val historyLabel : TextView = item.findViewById(R.id.history_label)
         val historyScore : TextView = item.findViewById(R.id.history_score)
+        val historyDate : TextView = item.findViewById(R.id.history_date)
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): HistoryAdapter.ViewHolder {
+    ): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.history_item, parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: HistoryAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val history = historyList[position]
         holder.historyImg.setImageURI(Uri.parse(history.uri))
-        holder.historyType.text = holder.itemView.context.getString(R.string.label, history.label)
+        holder.historyLabel.text = holder.itemView.context.getString(R.string.label, history.label)
         holder.historyScore.text = holder.itemView.context.getString(R.string.score, NumberFormat.getPercentInstance().format(history.confidence).toString())
+        holder.historyDate.text = holder.itemView.context.getString(R.string.date, history.dateGenerate)
     }
 
     override fun getItemCount(): Int {

@@ -12,7 +12,7 @@ interface HistoryDao {
     fun insert(history: History)
 
     @Query("SELECT * FROM history ORDER BY imageUri ASC")
-    fun getAll() : LiveData<List<History>>
+    fun getAll(): LiveData<List<History>>
 
     @Query("DELETE FROM history")
     fun deleteAll()

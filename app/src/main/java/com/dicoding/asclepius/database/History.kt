@@ -17,7 +17,7 @@ data class History(
     @ColumnInfo(name = "imageUri")
     var uri: String,
 
-    @ColumnInfo(name  = "label")
+    @ColumnInfo(name = "label")
     var label: String? = null,
 
     @ColumnInfo(name = "confidence")

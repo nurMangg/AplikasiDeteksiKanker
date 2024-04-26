@@ -2,23 +2,25 @@ package com.dicoding.asclepius.view
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.asclepius.database.History
 import com.dicoding.asclepius.databinding.ActivityResultBinding
 import com.dicoding.asclepius.helper.ImageClassifierHelper
 import com.dicoding.asclepius.view.adaptermodel.ViewModelFactory
-import com.dicoding.asclepius.view.adaptermodel.viewModel
+import com.dicoding.asclepius.view.adaptermodel.HisViewModel
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.text.SimpleDateFormat
 import java.util.Date
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
-    private var historyResult : History? = null
-    private lateinit var nviewModel: viewModel
+    private var historyResult: History? = null
+    private lateinit var nviewModelHis: HisViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +29,7 @@ class ResultActivity : AppCompatActivity() {
 
 
 
-        nviewModel = obtainViewModel(this@ResultActivity)
+        nviewModelHis = obtainViewModel(this@ResultActivity)
 
         // TODO: Menampilkan hasil gambar, prediksi, dan confidence score.
         val imageString = intent.getStringExtra(IMAGE_URI)
@@ -43,8 +45,9 @@ class ResultActivity : AppCompatActivity() {
                     }
 
                     override fun onResults(result: List<Classifications>?, interenceTime: Long) {
-                        result?.let { showResult(it, imageString)}
-                        nviewModel.insert(historyResult!!)
+                        result?.let { showResult(it, imageString) }
+                        nviewModelHis.insert(historyResult!!)
+                        showToast("Success Save To History")
                     }
                 }
             )
@@ -57,9 +60,13 @@ class ResultActivity : AppCompatActivity() {
 
     }
 
-    private fun obtainViewModel(activity: AppCompatActivity): viewModel {
+    private fun showToast(mess: String) {
+        Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): HisViewModel {
         val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory)[viewModel::class.java]
+        return ViewModelProvider(activity, factory)[HisViewModel::class.java]
     }
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
@@ -81,7 +88,7 @@ class ResultActivity : AppCompatActivity() {
             label = label,
             confidence = score,
             dateGenerate = dateNow
-            )
+        )
 
         binding.resultText.text = "$label ${score.formatToString()}"
     }

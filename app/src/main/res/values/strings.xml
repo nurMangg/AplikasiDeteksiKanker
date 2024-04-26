@@ -13,4 +13,6 @@
     <string name="score">Score: %s</string>
     <string name="date">Date: %s</string>
     <string name="history">History</string>
+    <string name="link">read more</string>
+    <string name="article">Latest News</string>
 </resources>

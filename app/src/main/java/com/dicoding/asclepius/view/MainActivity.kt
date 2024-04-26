@@ -5,19 +5,16 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.asclepius.database.History
-import com.dicoding.asclepius.database.HistoryDao
-import com.dicoding.asclepius.database.HistoryDatabase
+import com.dicoding.asclepius.R
 import com.dicoding.asclepius.databinding.ActivityMainBinding
-import com.dicoding.asclepius.repo.HistoryRepository
-import com.dicoding.asclepius.view.adaptermodel.viewModel
 import com.yalantis.ucrop.UCrop
 import java.io.File
 
-@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -30,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.elevation = 0f
+        supportActionBar?.title = "Cancer App"
+
 
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.analyzeButton.setOnClickListener {
@@ -40,8 +40,29 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.historyButton.setOnClickListener {
-            val intent = Intent(this, HistoryActivity::class.java)
+//            val intent = Intent(this, HistoryActivity::class.java)
+//            startActivity(intent)
+
+            val intent = Intent(this, NewsActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_history -> {
+                val intent = Intent(this, HistoryActivity::class.java)
+                startActivity(intent)
+                true
+            }
+
+            else -> true
         }
     }
 
@@ -118,6 +139,5 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "ImagePicker"
-        private const val REQUEST_RESULT = 1001
     }
 }
